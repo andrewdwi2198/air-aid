@@ -12,7 +12,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func Handler(w http.ResponseWriter, r *http.Request) {
+func Handler(w http.ResponseWriter, r *http.Request) {	
 	decoder := json.NewDecoder(r.Body)
 	var data map[string]interface{}
 	decoder.Decode(&data)
