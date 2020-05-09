@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"log"
 	"os"
-
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/andrewdwi2198/air-aid/helpers/models"
 	"github.com/jinzhu/gorm"
 )
 
 func InitDB() (*gorm.DB, error) {
-	host := os.Getenv("PG_USER")
+	host := os.Getenv("PG_HOST")
 	username := os.Getenv("PG_USER")
 	pass := os.Getenv("PG_PASSWORD")
 	dbname := os.Getenv("PG_DBNAME")
