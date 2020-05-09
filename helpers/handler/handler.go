@@ -27,8 +27,9 @@ func (svc *service) Handler(w http.ResponseWriter, r *http.Request) {
 	var data models.Data
 
 	decoder.Decode(&data)
-
-	svc.DB.Create(&data)
+	if data.Latitude != 0 && data.Longitude != 0 {
+		svc.DB.Create(&data)
+	}
 
 	w.WriteHeader(http.StatusOK)
 }
