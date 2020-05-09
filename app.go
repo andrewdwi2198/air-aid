@@ -1,32 +1,31 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"time"
 
+	"github.com/andrewdwi2198/air-aid/drivers/db"
+	"github.com/andrewdwi2198/air-aid/helpers/handler"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 )
 
-func Handler(w http.ResponseWriter, r *http.Request) {	
-	decoder := json.NewDecoder(r.Body)
-	var data map[string]interface{}
-	decoder.Decode(&data)
-
-	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "Message Received")
-	fmt.Println(data)
-}
-
 func main() {
 	godotenv.Load()
+
+	db, err := db.InitDB()
+	if err != nil {
+		log.Panicf("[InitDB]unable to connect to db, err: %s\n", err.Error())
+	}
+
+	service := handler.NewHandler(db)
+
 	r := mux.NewRouter()
 
-	r.HandleFunc("/airdata", Handler).Methods("POST")
+	r.HandleFunc("/airdata", service.Handler).Methods("POST")
 
 	port := os.Getenv("PORT")
 	if port == "" {
