@@ -1,1 +1,1 @@
-web: ./bin/air-aid
+web: air-aid
