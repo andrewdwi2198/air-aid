@@ -1,1 +1,1 @@
-web: go build && app
+web: bin/air-aid
