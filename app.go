@@ -25,7 +25,7 @@ func main() {
 
 	r := mux.NewRouter()
 
-	r.HandleFunc("/airdata", service.Handler).Methods("POST")
+	r.HandleFunc("/airdata", service.MutateHandler).Methods("POST")
 
 	port := os.Getenv("PORT")
 	if port == "" {
